@@ -48,31 +48,33 @@ const PropertyForm = ({ isEdit = false }) => {
   const { citiesData } = useSelector((state) => state.cities);
 
   // get data of selected property
-  const { data, isSuccess, isFetching } = useSelector((state) => {
+  const { data, isSuccess, fetching } = useSelector((state) => {
     return state.property;
   });
   const { properties: propertyToEdit } = data;
 
   useEffect(() => {
-    if (isEdit) {
-      dispatch(fetchPropertyById(params.id));
-    }
-  // eslint-disable-next-line
-  }, [params.id]);
+    const fetchSelectedProperty = () => {
+      if (isEdit) {
+        dispatch(fetchPropertyById(params.id));
+      }
+    };
+
+    fetchSelectedProperty();
+  }, [params.id, isEdit, dispatch]);
 
   useEffect(() => {
-    if (!isFetching && isSuccess && isEdit) {
+    if (!fetching && isSuccess && isEdit) {
       populatePropertyForm(propertyToEdit);
     }
-  // eslint-disable-next-line
-  }, [isFetching, isSuccess, isEdit]);
+    // eslint-disable-next-line
+  }, [fetching, isSuccess, isEdit]);
 
   useEffect(() => {
-    if (cityOptions.length === 0) {
+    if (cityOptions?.length === 0) {
       dispatch(fetchCities());
     }
-  // eslint-disable-next-line
-  }, []);
+  }, [cityOptions?.length, dispatch]);
 
   useEffect(() => {
     setCityOptions(citiesData.cities);
@@ -129,7 +131,9 @@ const PropertyForm = ({ isEdit = false }) => {
         city_id: data?.address?.city_id,
         district_id: data?.address?.district_id,
       },
-      image_url: data?.image_url && `${process.env.REACT_APP_BASE_URL}${data?.image_url}`,
+      image_url:
+        data?.image_url &&
+        `${process.env.REACT_APP_BASE_URL}${data?.image_url}`,
       mrt: data?.mrt,
     });
   };
@@ -308,7 +312,7 @@ const PropertyForm = ({ isEdit = false }) => {
                       </MenuItem>
                     ))}
                   </Select>
-                  <FormHelperText sx={{color: "#d32f2f"}} >
+                  <FormHelperText sx={{ color: "#d32f2f" }}>
                     {touched.address_attributes?.city_id &&
                       errors.address_attributes?.city_id}
                   </FormHelperText>
@@ -339,17 +343,22 @@ const PropertyForm = ({ isEdit = false }) => {
                       </MenuItem>
                     ))}
                   </Select>
-                  <FormHelperText sx={{color: "#d32f2f"}}>
+                  <FormHelperText sx={{ color: "#d32f2f" }}>
                     {touched.address_attributes?.district_id &&
                       errors.address_attributes?.district_id}
                   </FormHelperText>
                 </FormControl>
               </Grid>
               <Grid item xs={12}>
-                { isEdit && values?.image_url ?
+                {isEdit && values?.image_url ? (
                   <Box mt={2} textAlign="center">
-                    <img src={values?.image_url} alt="property" height="100px" />
-                  </Box> :
+                    <img
+                      src={values?.image_url}
+                      alt="property"
+                      height="100px"
+                    />
+                  </Box>
+                ) : (
                   <input
                     type="file"
                     id="image_url"
@@ -359,7 +368,7 @@ const PropertyForm = ({ isEdit = false }) => {
                     accept="image/*"
                     onChange={handleImageUpload}
                   />
-                }
+                )}
               </Grid>
             </Grid>
             <Button

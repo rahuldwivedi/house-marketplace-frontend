@@ -17,7 +17,7 @@ const initialState = {
   isSuccess: false,
   isError: false,
   error: [],
-  isFetching: false,
+  fetching: false,
 };
 
 export const addProperty = createAsyncThunk(

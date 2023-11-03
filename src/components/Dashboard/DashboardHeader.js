@@ -19,7 +19,7 @@ const DashboardHeader = ({ isAdmin, setCurrentPage, currentPage }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (debouncedSearch || searchInput === '') {
+    if (debouncedSearch || searchInput === "") {
       const queryParams = {
         currentPage: 1,
         query: debouncedSearch,
@@ -29,7 +29,7 @@ const DashboardHeader = ({ isAdmin, setCurrentPage, currentPage }) => {
       localStorage.setItem("currentPage", 1);
       return;
     }
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [debouncedSearch, searchInput]);
 
   const onChangeHandler = (event) => {

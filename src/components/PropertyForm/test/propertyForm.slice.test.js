@@ -142,7 +142,7 @@ describe("propertySlice", () => {
         isSuccess: false,
         isError: false,
         error: [],
-        isFetching: false,
+        fetching: false,
       },
     });
   });

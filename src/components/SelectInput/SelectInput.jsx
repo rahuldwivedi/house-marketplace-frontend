@@ -92,7 +92,7 @@ const SelectInput = ({
 SelectInput.propTypes = {
   label: PropTypes.string,
   name: PropTypes.string,
-  value: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
+  value: PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.number]),
   options: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),

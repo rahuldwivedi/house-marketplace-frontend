@@ -18,8 +18,7 @@ const DashboardPage = () => {
   useEffect(() => {
     const queryParams = { currentPage: currentPage, query: "" };
     dispatch(fetchProperties(queryParams));
-    // eslint-disable-next-line
-  }, []);
+  }, [dispatch, currentPage]);
 
   return (
     <Dashboard

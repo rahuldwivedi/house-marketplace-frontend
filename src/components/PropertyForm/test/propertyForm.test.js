@@ -22,12 +22,12 @@ jest.mock("react-redux", () => ({
 describe("PropertyForm Component", () => {
   const initialState = {
     cities: {
-      citiesData: { cities: [], isSuccess: false, isFetching: false },
+      citiesData: { cities: [], isSuccess: false, fetching: false },
     },
     property: {
       data: { id: 1, title: "type 1" },
       isSuccess: true,
-      isFetching: false,
+      fetching: false,
       errors: [],
     },
   };

@@ -80,7 +80,7 @@ const Property = ({
     formData.append("property_id", id);
     formData.append("is_favourite", newFavourite);
     handleAction(newFavourite, formData);
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [dispatch, id, is_favourite]);
 
   const handleHoverIcon = useCallback(() => {
@@ -91,13 +91,15 @@ const Property = ({
     setIsDeleteDialogOpen(!isDeleteDialogOpen);
   }, [isDeleteDialogOpen]);
 
-  const confirmDelete = useCallback(() => {
+  const confirmDelete = () => {
     dispatch(deletePropertyById(id)).then((res) => {
       if (res.payload) {
         if (currentPageProperties.length === 1 && currentPage !== 1) {
           const updatedCurrentPage = currentPage - 1;
           setCurrentPage(updatedCurrentPage);
-          dispatch(fetchProperties({ currentPage: updatedCurrentPage, query: "" }));
+          dispatch(
+            fetchProperties({ currentPage: updatedCurrentPage, query: "" })
+          );
         } else {
           dispatch(fetchProperties({ currentPage, query: "" }));
         }
@@ -105,11 +107,9 @@ const Property = ({
     });
 
     handleDeleteDialog();
-  // eslint-disable-next-line
-  }, [dispatch, id, handleDeleteDialog]);
+  };
 
   const renderAdminActions = useCallback(() => {
-    if (!isHovered) return null;
     return (
       <Box
         sx={{
@@ -124,6 +124,7 @@ const Property = ({
             onClick={() => navigate(`/admin/edit-properties/${id}`)}
             sx={{
               color: "white",
+              backgroundColor: "#1976d2",
             }}
             data-testid="edit-button"
           >
@@ -135,6 +136,7 @@ const Property = ({
             onClick={handleDeleteDialog}
             sx={{
               color: "white",
+              backgroundColor: "#1976d2",
             }}
             data-testid="delete-button"
           >
@@ -143,6 +145,7 @@ const Property = ({
         </Tooltip>
       </Box>
     );
+    // eslint-disable-next-line
   }, [isHovered, navigate, id, handleDeleteDialog]);
 
   const renderUserFavorite = useCallback(() => {

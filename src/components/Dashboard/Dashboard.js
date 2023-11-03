@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from "react";
+import React, { memo } from "react";
 import { useDispatch } from "react-redux";
 import {
   Grid,
@@ -11,7 +11,6 @@ import {
 
 import Property from "src/components/Property/Property";
 import DashboardHeader from "./DashboardHeader";
-
 import { fetchProperties } from "./dashboard.slice";
 import { fetchFavoriteProperties } from "src/pages/favouriteProperties/Favorite.slice";
 
@@ -29,11 +28,13 @@ const Dashboard = ({
 
   const handlePageChange = (_, value) => {
     const query = { currentPage: value, query: "" };
-    dispatch(fromFavoritePage ? fetchFavoriteProperties(value) : fetchProperties(query));
+    dispatch(
+      fromFavoritePage ? fetchFavoriteProperties(value) : fetchProperties(query)
+    );
     setCurrentPage(value);
   };
 
-  const renderCardUI = useMemo(() => {
+  const renderCardUI = () => {
     if (properties?.length > 0) {
       return (
         <>
@@ -54,8 +55,7 @@ const Dashboard = ({
     } else {
       return <h2>No records found</h2>;
     }
-    // eslint-disable-next-line
-  }, [properties, isAdmin]);
+  };
 
   return (
     <Container>
@@ -80,7 +80,7 @@ const Dashboard = ({
             <CircularProgress color="inherit" />
           </Stack>
         ) : (
-          renderCardUI
+          renderCardUI()
         )}
       </Grid>
       <Box

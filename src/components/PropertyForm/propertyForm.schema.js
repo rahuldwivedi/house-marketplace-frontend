@@ -21,7 +21,7 @@ const propertyValidationSchema = object().shape({
       .required("District is required"),
   }),
   description: string().required("Description is required"),
-  image_url: string().nullable().required("Image is required")
+  image_url: string().nullable().required("Image is required"),
 });
 
 const initialValues = {

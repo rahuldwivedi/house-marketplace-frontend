@@ -14,8 +14,7 @@ const FavouritePropertiesPage = () => {
 
   useEffect(() => {
     dispatch(fetchFavoriteProperties(1));
-  // eslint-disable-next-line
-  }, []);
+  }, [dispatch]);
 
   return (
     <Dashboard
